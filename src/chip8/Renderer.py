@@ -14,15 +14,18 @@ class Renderer(ABC):
         cruzar a tela e desenhá-lo a partir do lado oposto.
         Deve retornar True se o pixel foi apagado e False se foi desenhado.
         '''
+        pass
 
     @abstractmethod
     def clear(self):
         '''
         Função para limpar a tela.
         '''
+        pass
 
     @abstractmethod
     def render(self):
         '''
         Função para ser executada em loop e atualizar a tela conforme os dados de display se alteram.
         '''
+        pass
