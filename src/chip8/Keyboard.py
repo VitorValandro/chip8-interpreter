@@ -22,7 +22,7 @@ class Keyboard(ABC):
             86: 0xf,  # V
         }
 
-        self.keysPressed = []
+        self.keysPressed = [0] * 16
         self.onNextKeyPressed = None
 
     @abstractmethod
@@ -34,7 +34,7 @@ class Keyboard(ABC):
         pass
 
     @abstractmethod
-    def onKeyDown(self):
+    def onKeyDown(self, key):
         '''
         Função chamada quando usuário aperta uma tecla. Deve-se armazenar a tecla apertada no array
         self.keysPressed e verificar se a função self.onNextKeyPress foi chamada pela instrução LD Vx, K (0xFx0A)
@@ -42,7 +42,7 @@ class Keyboard(ABC):
         pass
 
     @abstractmethod
-    def onKeyUp(self):
+    def onKeyUp(self, key):
         '''
         Função chamda quando usuário solta uma tecla. Deve-se retirar a tecla que estava apertada do array
         self.keysPressed
