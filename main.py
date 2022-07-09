@@ -8,22 +8,30 @@ from src.chip8.Speaker import Speaker
 from src.implementations.pgRenderer import PygameRenderer
 from src.implementations.pgKeyboard import PygameKeyboard
 
-a = PygameRenderer(10)
-b = PygameKeyboard()
 
-a.setPixel(0, 0)
-a.setPixel(5, 2)
-a.render()
+def main():
+    renderer = PygameRenderer(10)
+    keyboard = PygameKeyboard()
+    chip8 = CPU(renderer, keyboard, None)
 
-timer = pygame.time.Clock()
-time = 0
-while (True):
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-        if event.type == pygame.KEYDOWN:
-            b.onKeyDown(event.key)
+    chip8.load_sprites()
+    chip8.load_data(r"C:\Users\vitor\Desktop\poo\chip8\breakout.ch8", chip8.pc)
 
-        if event.type == pygame.KEYUP:
-            b.onKeyUp(event.key)
+    timer = pygame.time.Clock()
+    time = 0
+    while (True):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                keyboard.onKeyDown(event.key)
+
+            if event.type == pygame.KEYUP:
+                keyboard.onKeyUp(event.key)
+
+        chip8.cycle()
+
+
+if __name__ == '__main__':
+    main()

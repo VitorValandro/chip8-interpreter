@@ -113,7 +113,7 @@ class CPU:
         self.stack[self.stack_pointer] = self.pc
         self.stack_pointer += 1
         # depois, pula para a execução da subrotina em nnn
-        self.pc = self.nnn(self.opcode)
+        self.pc = (self.opcode & 0xFFF)
 
     def SE_vx_byte(self):
         # pula a próxima instrução se vx == byte
@@ -383,3 +383,14 @@ class CPU:
 
         instruction = self.instructions.get(decoded_opcode)
         instruction()
+
+    def cycle(self):
+        for i in range(self.speed):
+            if not self.paused:
+                opcode = self.memory[self.pc] << 8 | self.memory[self.pc + 1]
+                self.execute(opcode)
+
+        if not self.paused:
+            self.update_timers()
+
+        self.renderer.render()
