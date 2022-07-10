@@ -93,6 +93,12 @@ class CPU:
 
         if self.sound_timer > 0:
             self.sound_timer -= 1
+    
+    def play_sound(self):
+        if self.sound_timer > 0:
+            self.speaker.play();
+        else:
+            self.speaker.stop();
 
     def CLS(self):
         # limpa a tela
@@ -393,4 +399,5 @@ class CPU:
         if not self.paused:
             self.update_timers()
 
+        self.play_sound()
         self.renderer.render()
