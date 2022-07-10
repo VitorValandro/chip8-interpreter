@@ -30,6 +30,7 @@ def main():
             if event.type == pygame.KEYUP:
                 keyboard.onKeyUp(event.key)
 
+        timer.tick(60)
         chip8.cycle()
 
 

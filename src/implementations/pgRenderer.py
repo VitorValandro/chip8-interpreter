@@ -21,9 +21,11 @@ class PygameRenderer(Renderer):
         elif y < 0:
             y += self.rows
 
-        pixelIndex = x + (y * self.cols)
-        self.display[pixelIndex] ^= 1
+        pixelIndex = (x + y * self.cols)
+        if pixelIndex == 2048:
+            pixelIndex -= 1
 
+        self.display[pixelIndex] ^= 1
         return self.display[pixelIndex] == 0
 
     def clear(self):
