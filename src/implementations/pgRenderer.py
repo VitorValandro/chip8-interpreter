@@ -10,6 +10,8 @@ class PygameRenderer(Renderer):
             (self.cols * scale, self.rows * scale))
         self.display = [0] * self.rows * self.cols
 
+        pygame.display.set_caption('CHIP-8 interpreter renderer')
+
     def setPixel(self, x, y):
         if x > self.cols:
             x -= self.cols
