@@ -1,37 +1,42 @@
 import pygame
 from ..chip8.Renderer import Renderer
 
+def matriz(col, linhas):
+    matriz = []
+    for i in range(linhas):
+        l = []
+        for j in range(col):
+            l.append(0)
+        matriz.append(l)
 
+    return matriz
 class PygameRenderer(Renderer):
     def __init__(self, scale):
         super().__init__()
         self.scale = scale
         self.screen = pygame.display.set_mode(
             (self.cols * scale, self.rows * scale))
-        self.display = [0] * self.rows * self.cols
+        self.display = matriz(self.cols, self.rows)
 
         pygame.display.set_caption('CHIP-8 interpreter renderer')
 
     def setPixel(self, x, y):
-        if x > self.cols:
+        if x >= self.cols:
             x -= self.cols
         elif x < 0:
             x += self.cols
 
-        if y > self.rows:
+        if y >= self.rows:
             y -= self.rows
         elif y < 0:
             y += self.rows
 
-        pixelIndex = (x + y * self.cols)
-        if pixelIndex == 2048:
-            pixelIndex -= 1
+        self.display[y][x] ^= 1
+        return self.display[y][x] == 0
 
-        self.display[pixelIndex] ^= 1
-        return self.display[pixelIndex] == 0
 
     def clear(self):
-        self.display = [0] * self.rows * self.cols
+        self.display = [[0] * self.cols] * self.rows
 
     def render(self):
         black = (0, 0, 0)
@@ -39,12 +44,12 @@ class PygameRenderer(Renderer):
 
         self.screen.fill(black)
 
-        for i in range(len(self.display)):
-            x = (i % self.cols) * self.scale
-            y = (i // self.cols) * self.scale
-
-            if self.display[i] == 1:
-                pygame.draw.rect(self.screen, white,
-                                 (x, y, self.scale, self.scale))
+        for i in range(self.rows):
+            y = i * self.scale
+            for j in range(self.cols):
+                x = j * self.scale
+                
+                if self.display[i][j] == 1:
+                    pygame.draw.rect(self.screen, white, (x, y, self.scale, self.scale))
 
         pygame.display.update()
