@@ -106,8 +106,7 @@ class CPU:
 
     def RET(self):
         # retorna de uma subrotina
-        self.stack_pointer -= 1
-        self.pc = self.stack[self.stack_pointer]
+        self.pc = self.stack.pop()
 
     def JUMP_addr(self):
         # pula o contador de programa para o endereço nnn
@@ -115,9 +114,9 @@ class CPU:
 
     def CALL(self):
         # chama a subrotina do endereço nnn
+        
         # primeiro, armazena a execução atual no topo da pilha
-        self.stack[self.stack_pointer] = self.pc
-        self.stack_pointer += 1
+        self.stack.append(self.pc)
         # depois, pula para a execução da subrotina em nnn
         self.pc = (self.opcode & 0xFFF)
 
