@@ -10,6 +10,7 @@ from src.implementations.pgRenderer import PygameRenderer
 from src.implementations.pgKeyboard import PygameKeyboard
 from src.implementations.pgSpeaker import PygameSpeaker
 
+
 def main():
     renderer = PygameRenderer(10)
     keyboard = PygameKeyboard()
@@ -17,7 +18,8 @@ def main():
     chip8 = CPU(renderer, keyboard, speaker)
 
     chip8.load_sprites()
-    chip8.load_data(r"C:\Users\vitor\Desktop\poo\chip8\breakout.ch8", chip8.pc)
+    chip8.load_data(
+        r"C:\Users\vitor\Desktop\poo\chip8\roms\breakout.ch8", chip8.pc)
 
     clock = pygame.time.Clock()
     while (True):
