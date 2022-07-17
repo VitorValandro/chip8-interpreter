@@ -33,7 +33,7 @@ All the 35 original opcodes of Chip-8 have their implementations written in pyth
 Clone the repository
 
 ```bash
-git clone https://github.com/VitorValandro/chip-8-interpreter
+git clone https://github.com/VitorValandro/chip8-interpreter
 ```
 
 Go to project's root directory and install the dependencies (if you want to, create a virtualenv before):
